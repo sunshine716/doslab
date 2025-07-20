@@ -1,0 +1,30 @@
+{"level":30,"time":1752975175822,"pid":88256,"hostname":"SF-WZHANG","msg":"✅ Registered GET /account → /Users/weiyangzhang/SecurityTestWS/vulApp/controllers/account/index.js"}
+{"level":30,"time":1752975175822,"pid":88256,"hostname":"SF-WZHANG","msg":"✅ Registered GET /account/profile → /Users/weiyangzhang/SecurityTestWS/vulApp/controllers/account/profile.js"}
+{"level":30,"time":1752975175822,"pid":88256,"hostname":"SF-WZHANG","msg":"✅ Registered POST /account/update → /Users/weiyangzhang/SecurityTestWS/vulApp/controllers/account/update.js"}
+{"level":30,"time":1752975175822,"pid":88256,"hostname":"SF-WZHANG","msg":"✅ Registered POST /account/login → /Users/weiyangzhang/SecurityTestWS/vulApp/controllers/account/login.js"}
+{"level":30,"time":1752975175823,"pid":88256,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752975217807,"pid":88503,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752975317932,"pid":88983,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752975491312,"pid":89795,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752976539523,"pid":94538,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752976976452,"pid":96139,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752977500416,"pid":98078,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752977975579,"pid":212,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752978062166,"pid":853,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752978109534,"pid":1155,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752978415680,"pid":2318,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752978505869,"pid":2770,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":40,"time":1752979157331,"pid":5010,"hostname":"SF-WZHANG","msg":"⚠️  Controller not found for route / → /Users/weiyangzhang/SecurityTestWS/vulApp/controllers/undefined.js"}
+{"level":30,"time":1752979157333,"pid":5010,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":40,"time":1752979292133,"pid":5580,"hostname":"SF-WZHANG","msg":"⚠️  Controller not found for route / → /Users/weiyangzhang/SecurityTestWS/vulApp/controllers/index.js"}
+{"level":30,"time":1752979292135,"pid":5580,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752979474202,"pid":6591,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752979676477,"pid":7436,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752979856571,"pid":8183,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752980173935,"pid":9447,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752980332756,"pid":9976,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752980364186,"pid":10118,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752980602416,"pid":11073,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752980648951,"pid":11282,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752980672981,"pid":11440,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
+{"level":30,"time":1752980692107,"pid":11557,"hostname":"SF-WZHANG","msg":"🚀 Server is running on http://localhost:3000"}
