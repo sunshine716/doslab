@@ -1,0 +1,38 @@
+rules:
+  - id: unguarded-access
+    message: "Potential DoS issue: accessing '$DATA.$PROP' without checking '$ERR'.
+      This may lead to uncaught exceptions if '$ERR' is non-null."
+    languages:
+      - javascript
+      - typescript
+    severity: ERROR
+    metadata:
+      likelihood: HIGH
+      impact: MEDIUM
+      confidence: MEDIUM
+      vulnerability_class:
+          - Denial-of-Service (DoS)
+    patterns:
+      - pattern: $DATA.$PROP
+      - pattern-inside: |
+          $FUNC(..., $ARGS, ..., ($ERR, ..., $DATA, ...) => {
+            ...
+          });
+      - pattern-not-inside: |
+          $FUNC(..., $ARGS, ..., ($ERR, ..., $DATA, ...) => {
+            if ($ERR) {
+              return ...
+            }
+            ...
+          });
+      - pattern-not-inside: |
+          $FUNC(..., $ARGS, ..., ($ERR, ..., $DATA, ...) => {
+            if ($DATA && ...) {
+              ...
+            }
+            ...
+          });
+      - pattern-not-inside: |
+          $FUNC(..., $ARGS, ..., ($ERR, ..., $DATA, ...) => {
+            $ERR ? ... : ...
+          });

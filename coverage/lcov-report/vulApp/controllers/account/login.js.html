@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/9</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/9</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
@@ -87,54 +87,63 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const logger = require('../../libs/logger');
+const { authenticateUser } = require('../../models/account');
+const crypto = require('crypto');
 &nbsp;
 const post = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >  logger.debug('Received request for account login');</span>
   const { username, password } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+  //hash password
+  const hashedPassword = <span class="cstat-no" title="statement not covered" >crypto.pbkdf2Sync(password, 'salt',</span>
+    1000000, 64, 'sha512').toString('hex');
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  console.log(`Login attempt with username: ${username}, password: ${password}`);</span>
-  // Save user info in session
-<span class="cstat-no" title="statement not covered" >  req.session.user = {</span>
-    username: username
-    // Add more fields if needed
-  };
+  //The following code is vulnerable to DoS attack, becuase it does not check the err parameter before accssing to data object
+<span class="cstat-no" title="statement not covered" >  authenticateUser(username, hashedPassword, <span class="fstat-no" title="function not covered" >(e</span>rr, data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (data.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >      return res.render('main', {</span>
+        message: 'Invalid username or password!'
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    logger.info(`User ${username} logged in successfully`);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  logger.info(`User ${username} logged in successfully`);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  res.render('dashboard', {</span>
-    user: 'Weiyang',
-    layout: 'layout'
+    const userId = <span class="cstat-no" title="statement not covered" >4;</span> // This should be fetched from the database based on the username
+<span class="cstat-no" title="statement not covered" >    req.session.user = { username, userId };</span>
+<span class="cstat-no" title="statement not covered" >    res.redirect('/quotes');</span>
   });
+&nbsp;
 };
 &nbsp;
-module.exports = {
-  post
-};
+module.exports = { post };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -142,7 +151,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-20T21:38:17.166Z
+                at 2025-07-24T23:05:17.623Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

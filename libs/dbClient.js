@@ -66,7 +66,7 @@ function createDbClient(prefixName) {
   function runQuery(sql, params, callback) {
     pool.connect((err, client, done) => {
       if (err) {
-        logger.error(`Pool ${prefixName} failed to get client`, err);
+        logger.error(`The pool failed to connect to the database: ${err.message}`, err);
         return callback(err);
       }
 
@@ -97,17 +97,41 @@ function createDbClient(prefixName) {
     },
 
     /**
+     * Executes a SQL query in async modeand returns all rows.
+     * @param {string} sql - SQL statement
+     * @param {Array} params - Query parameters
+     * @param {function} callback - (err, rows) => {}
+     */
+    executeQueryAsync(sql, params) {
+      return new Promise((resolve, reject) => {
+        runQuery(sql, params, (err, results) =>
+          err ? reject(err) : resolve(results.rows)
+        );
+      });
+    },
+
+    /**
      * Executes a SQL query and expects exactly one row.
      * Returns null if not exactly one row is returned.
      */
     getObject(sql, params, callback) {
       runQuery(sql, params, (err, results) => {
-        if (err) { return callback(err);}
-        if (results.rows.length !== 1) { return callback(null, null);};
+        if (err) { return callback(err); }
+        if (results.rows.length !== 1) { return callback(null, null); };
         return callback(null, results.rows[0]);
       });
     },
 
+    getObjectAsync(sql, params) {
+      return new Promise((resolve, reject) => {
+        runQuery(sql, params, (err, results) => {
+          if (err) { return reject(err); }
+          if (results.rows.length !== 1) { return resolve(null); }
+          return resolve(results.rows[0]);
+        });
+      });
+    },
+    
     /**
      * Executes a SQL query and returns the number of affected rows.
      */
@@ -115,7 +139,80 @@ function createDbClient(prefixName) {
       runQuery(sql, params, (err, results) =>
         err ? callback(err) : callback(null, results.rowCount)
       );
+    },
+
+    getCountAsync(sql, params) {
+      return new Promise((resolve, reject) => {
+        runQuery(sql, params, (err, results) => {
+          if (err) { return reject(err); }
+          return resolve(results.rowCount);
+        });
+      });
+    },
+
+        /**
+     * Inserts a new record into a table.
+     * @param {string} table - Table name
+     * @param {object} data - Key-value pairs representing columns and values
+     * @param {function} callback - (err, insertedRow) => {}
+     */
+    insert(table, data, callback) {
+      const keys = Object.keys(data);
+      const values = Object.values(data);
+      const placeholders = keys.map((_, idx) => `$${idx + 1}`);
+
+      const sql = `INSERT INTO ${table} (${keys.join(', ')}) VALUES (${placeholders.join(', ')}) RETURNING *`;
+
+      runQuery(sql, values, (err, results) =>
+        err ? callback(err) : callback(null, results.rows[0])
+      );
+    },
+
+    insertAsync(table, data) {
+      const keys = Object.keys(data);
+      const values = Object.values(data);
+      const placeholders = keys.map((_, idx) => `$${idx + 1}`);
+
+      const sql = `INSERT INTO ${table} (${keys.join(', ')}) VALUES (${placeholders.join(', ')}) RETURNING *`;
+
+      return this.executeQueryAsync(sql, values).then(rows => rows[0]);
+    },
+
+    /**
+     * Updates a record in a table with WHERE clause.
+     * @param {string} table - Table name
+     * @param {object} data - Key-value pairs to update
+     * @param {object} where - Key-value pairs for the WHERE clause
+     * @param {function} callback - (err, updatedRowCount) => {}
+     */
+    update(table, data, where, callback) {
+      const setKeys = Object.keys(data);
+      const whereKeys = Object.keys(where);
+
+      const setClause = setKeys.map((key, i) => `${key} = $${i + 1}`).join(', ');
+      const whereClause = whereKeys.map((key, i) => `${key} = $${setKeys.length + i + 1}`).join(' AND ');
+      const values = [...Object.values(data), ...Object.values(where)];
+
+      const sql = `UPDATE ${table} SET ${setClause} WHERE ${whereClause}`;
+
+      runQuery(sql, values, (err, results) =>
+        err ? callback(err) : callback(null, results.rowCount)
+      );
+    },
+
+    updateAsync(table, data, where) {
+      const setKeys = Object.keys(data);
+      const whereKeys = Object.keys(where);
+
+      const setClause = setKeys.map((key, i) => `${key} = $${i + 1}`).join(', ');
+      const whereClause = whereKeys.map((key, i) => `${key} = $${setKeys.length + i + 1}`).join(' AND ');
+      const values = [...Object.values(data), ...Object.values(where)];
+
+      const sql = `UPDATE ${table} SET ${setClause} WHERE ${whereClause}`;
+
+      return this.getCountAsync(sql, values);
     }
+
   };
 }
 

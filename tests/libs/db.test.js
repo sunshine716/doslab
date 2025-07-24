@@ -1,8 +1,6 @@
-
-
 const db = require('../../libs/dbClient')('DB');
 
-test('test db cquery', (done) => {
+test('test getCount method', (done) => {
 
   db.getCount('SELECT * FROM users', [], (err, count) => {
     if (err) { return done(err); }
@@ -10,6 +8,18 @@ test('test db cquery', (done) => {
 
     done(); // tell Jest test is done
   });
+});
+
+test('test executeQuery method', (done) => {
+  const name = 'alice'; 
+
+  db.executeQuery('SELECT * FROM users WHERE username = $1', [name], (err, rows) => {
+    if (err) { return done(err); }
+    //Expect more than one row to be returned
+    expect(rows.length).toBeGreaterThan(0);
+  });
+
+  done();
 });
 
 afterAll(() => {

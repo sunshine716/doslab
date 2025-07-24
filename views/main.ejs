@@ -17,6 +17,11 @@
             <h3>Login</h3>
           </div>
           <div class="card-body">
+            <% if (message) { %>
+              <div id="login-error-alert" class="alert alert-danger text-center" role="alert">
+                <%= message %>
+              </div>
+            <% } %>
             <form action="/account/login" method="POST">
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>

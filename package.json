@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "make": "node scripts/generateController.js",
+    "make": "node scripts/generateStubs.js",
+    "create-table": "node scripts/createTables.js",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
     "check": "eslint .",
@@ -21,6 +22,7 @@
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.1",
+    "i": "^0.3.7",
     "jest": "^29.5.0",
     "knex": "3.1.0",
     "pg": "^8.13.3",
@@ -29,6 +31,7 @@
     "supertest": "^6.3.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.9.0",
     "husky": "^9.1.7"
   }
 }

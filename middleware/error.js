@@ -1,6 +1,8 @@
+const logger = require('../libs/logger');
+
 // errorHandler.js (optional separate file)
 function errorHandler(err, req, res, _next) {
-  console.error('Unhandled error:', err.stack || err);
+  logger.error('Unhandled error:', err.stack || err);
 
   res.status(err.status || 500).json({
     error: {
