@@ -10,7 +10,6 @@ const get = (req, res) => {
 };
 
 const post = (req, res) => {
-
   const { given_name, family_name, phone_number, country } = req.body;
   
   if (!given_name || !family_name) {
@@ -42,7 +41,7 @@ const post = (req, res) => {
     
     console.log(`Profile updated successfully for user ${req.session.user.username}`);
     return res.status(200).json({
-      message: `Profile updated successfully!`,
+      message: 'Profile updated successfully!',
     });
 
   });
