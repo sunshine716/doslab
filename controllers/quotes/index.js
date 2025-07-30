@@ -19,6 +19,7 @@ const get = async (req, res) => {
   res.render('dashboard', {
     user: req.session.user.username,
     layout: 'layout',
+    rightPage: 'quotes',
     data: quotes,
     currentPage,
     totalPages,

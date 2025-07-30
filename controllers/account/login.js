@@ -17,7 +17,7 @@ const post = (req, res) => {
     }
     logger.info(`User ${username} logged in successfully`);
 
-    const userId = 4; // This should be fetched from the database based on the username
+    const userId = data[0].id; // This should be fetched from the database based on the username
     req.session.user = { username, userId };
     res.redirect('/quotes');
   });

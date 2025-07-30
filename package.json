@@ -7,7 +7,7 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "make": "node scripts/generateStubs.js",
-    "create-table": "node scripts/createTables.js",
+    "create-table": "node scripts/createTable.js",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
     "check": "eslint .",
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "bootstrap-icons": "1.13.1",
+    "cheerio": "^1.1.2",
     "dotenv": "^16.0.3",
     "ejs": "~3.1.10",
     "eslint": "^9.31.0",

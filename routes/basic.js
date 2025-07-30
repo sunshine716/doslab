@@ -29,7 +29,21 @@ module.exports = [
     path: '/account/update',
     authRequired: false
   },
-  
+  {
+    method: 'post',
+    path: '/coupon',
+    authRequired: true
+  },
+  {
+    method: 'get',
+    path: '/profile',
+    authRequired: true
+  },
+  {
+    method: 'post',
+    path: '/profile',
+    authRequired: true
+  },
   {
     method: 'get',
     path: '/quotes',

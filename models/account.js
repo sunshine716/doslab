@@ -1,3 +1,4 @@
+
 const db = require('../libs/dbClient')('DB');
 const authenticateUser = (username,pwd, callback) => {
   const sql = 'SELECT * FROM users WHERE username = $1 and password = $2';
